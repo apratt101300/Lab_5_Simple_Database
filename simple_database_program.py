@@ -15,5 +15,14 @@ class Juggler(Model):
         return(f'Name: {self.name}, Country: {self.country}, # of Catches: {self.catches}')
 
     
-db.connect()
-db.create_tables([Juggler])
+
+def add_juggler():
+
+
+def search_by_name():
+
+
+def update_catches():
+
+
+def delete_by_name():
