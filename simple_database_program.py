@@ -17,17 +17,22 @@ class Juggler(Model):
     
 
 def add_juggler(name, country, catches):
-        new_juggler = Juggler(name=name, country=country, catches=catches)
-        new_juggler.save()
+    new_juggler = Juggler(name=name, country=country, catches=catches)
+    new_juggler.save()
+    return new_juggler
         
 
 def search_by_name(name):
-    selected_juggler = Juggler.select().where(Juggler.name == name)
-    return selected_juggler
+    juggler = Juggler.get(Juggler.name == name)
+    return juggler
 
 
+def update_catches(name, new_catches):
+    juggler_to_update = search_by_name(name)
+    juggler_to_update.catches = new_catches
+    juggler_to_update.save()
 
-#def update_catches():
+
 
 
 #def delete_by_name():
@@ -35,10 +40,15 @@ def search_by_name(name):
 
 def main():
     add_juggler('Andrea', 'US', 60)
+    #some_other_person = add_juggler('Andrea', 'US', 60)
 
     andrea_info = search_by_name('Andrea')
-    for info in andrea_info:
-        print(info)
+    print(andrea_info)
+
+    update_catches('Andrea', 500)
+    print('\nWhat it looks like after update')
+    andrea_info = search_by_name('Andrea')
+    print(andrea_info)
 
 
 main()
