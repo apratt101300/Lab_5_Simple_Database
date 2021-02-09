@@ -33,9 +33,8 @@ def update_catches(name, new_catches):
     juggler_to_update.save()
 
 
-def delete_by_name(name):
-    juggler_to_delete = search_by_name(name)
-    juggler_to_delete.delete_instance()
+def delete_by_name(name_to_delete):
+    Juggler.delete().where(Juggler.name == name_to_delete).execute()
 
 
 
