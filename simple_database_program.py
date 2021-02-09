@@ -33,22 +33,32 @@ def update_catches(name, new_catches):
     juggler_to_update.save()
 
 
+def delete_by_name(name):
+    juggler_to_delete = search_by_name(name)
+    juggler_to_delete.delete_instance()
 
-
-#def delete_by_name():
 
 
 def main():
     add_juggler('Andrea', 'US', 60)
-    #some_other_person = add_juggler('Andrea', 'US', 60)
+    add_juggler('Bob', 'UK', 500)
+    add_juggler('Maria', 'UK', 520)
+    add_juggler('Eric', 'Venezuala', 300)
+    add_juggler('Eric', 'Venezuala', 300)
+    add_juggler('Eric', 'Venezuala', 300)
 
-    andrea_info = search_by_name('Andrea')
-    print(andrea_info)
 
-    update_catches('Andrea', 500)
+    for juggler in Juggler.select():
+        print(juggler)
+    
+
+    delete_by_name('Bob')
+    delete_by_name('Eric')
     print('\nWhat it looks like after update')
-    andrea_info = search_by_name('Andrea')
-    print(andrea_info)
+
+    for juggler in Juggler.select():
+        print(juggler)
+    
 
 
 main()
