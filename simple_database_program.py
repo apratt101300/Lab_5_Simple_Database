@@ -16,13 +16,24 @@ class Juggler(Model):
 
     
 
-def add_juggler():
+def add_juggler(name, country, catches):
+        new_juggler = Juggler(name=name, country=country, catches=catches)
+        new_juggler.save()
+        
 
 
-def search_by_name():
+
+    #def search_by_name():
 
 
-def update_catches():
+    #def update_catches():
 
 
-def delete_by_name():
+    #def delete_by_name():
+
+
+def main():
+    add_juggler('Andrea', 'US', 60)
+
+
+main()
