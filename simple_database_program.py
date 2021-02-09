@@ -21,19 +21,24 @@ def add_juggler(name, country, catches):
         new_juggler.save()
         
 
+def search_by_name(name):
+    selected_juggler = Juggler.select().where(Juggler.name == name)
+    return selected_juggler
 
 
-    #def search_by_name():
+
+#def update_catches():
 
 
-    #def update_catches():
-
-
-    #def delete_by_name():
+#def delete_by_name():
 
 
 def main():
     add_juggler('Andrea', 'US', 60)
+
+    andrea_info = search_by_name('Andrea')
+    for info in andrea_info:
+        print(info)
 
 
 main()
