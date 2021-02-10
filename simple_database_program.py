@@ -75,7 +75,7 @@ def make_menu():
 """These functions act as the user interface for the application"""
 def display_menu(menu):
     while True:
-        print(menu)
+        print(f'\n{menu}\n')
         choice = input('What would you like to do? ').upper()
         if menu.is_valid_choice(choice):
             return choice
@@ -84,26 +84,26 @@ def display_menu(menu):
 
 
 def add_juggler_ui():
-    name = input('New juggler name: ')
-    country = input('New juggler country: ')
-    catches = get_number_catches()
+    name = get_alpha_input('New juggler name: ')
+    country = get_alpha_input('New juggler country: ')
+    catches = get_number_input('New number of catches: ')
     add_juggler(name, country, catches)
 
     
 def search_by_name_ui():
-    name = input('Juggler to search for: ')
+    name = get_alpha_input('Juggler to search for: ')
     juggler = search_by_name(name)
     print(juggler)
     
 
 def update_catches_ui():
-    name = input('Name of juggler to update: ')
-    catches = get_number_catches()
+    name = get_alpha_input('Name of juggler to update: ')
+    catches = get_number_input('New number of catches: ')
     update_catches(name, catches)
 
 
 def delete_by_name_ui():
-    name = input('Name of juggler to delete: ')
+    name = get_alpha_input('Name of juggler to delete: ')
     delete_by_name(name)
 
 
@@ -114,13 +114,22 @@ def display_all():
     print('\n')
 
 
-def get_number_catches():
+def get_number_input(prompt):
     while True:
-        catches = input('New number of catches: ')
-        if catches.isdigit():
-            return catches
+        number = input(prompt)
+        if number.isdigit():
+            return number
         else:
             print('Please enter a valid integer.')
+
+
+def get_alpha_input(prompt):
+    while True:
+        sentence = input(prompt)
+        if sentence.isalpha():
+            return sentence
+        else:
+            print('Please enter alphabetical characters only.')
 
 
 def quit_program():
@@ -129,14 +138,14 @@ def quit_program():
 
 """Main function of the program"""
 def main():
-    print('\nChainsaw Juggling Record Holders as of July 2018\n\n')
+    print('\nChainsaw Juggling Record Holders as of July 2018\n')
     menu = make_menu()
     while True:
         user_choice = display_menu(menu)
         function = menu.get_function(user_choice)
         function()
         if user_choice == 'Q':
-            quit_program()
+            break
 
 
 main()
