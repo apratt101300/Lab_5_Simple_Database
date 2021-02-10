@@ -3,9 +3,9 @@ from peewee import *
 db = SqliteDatabase('Jugglers.sqlite')
 
 class Juggler(Model):
-    name = CharField()
-    country = CharField()
-    catches = IntegerField()
+    name = CharField(null=False, unique=True, constraints=[Check('length(name) >= 1'), Check('length(name) <= 30')])
+    country = CharField(null=False, constraints=[Check('length(country) >=1'), Check('length(country) <= 30')])
+    catches = IntegerField(null=False, constraints=[Check('catches >= 1'), Check('catches <= 5000')])
 
     class Meta:
         database = db
@@ -42,13 +42,16 @@ class Menu():
 
     
 """These functions work directly with the Juggler class to update data in the database"""
+
+# TODO add exception handling for database queries
+
 def add_juggler(name, country, catches):
     new_juggler = Juggler(name=name, country=country, catches=catches)
     new_juggler.save()
+ 
         
-
 def search_by_name(name):
-    juggler = Juggler.get(Juggler.name == name)
+    juggler = Juggler.get_or_none(Juggler.name == name)
     return juggler
 
 
@@ -82,6 +85,8 @@ def display_menu(menu):
         else:
             print('Please enter a valid menu option.')
 
+
+# TODO Consider putting UI in seperate file
 
 def add_juggler_ui():
     name = get_alpha_input('New juggler name: ')
@@ -148,5 +153,6 @@ def main():
             break
 
 
-main()
+if __name__ == '__main__':
+    main()
 
