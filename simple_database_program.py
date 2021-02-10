@@ -19,7 +19,6 @@ class Juggler(Model):
 def add_juggler(name, country, catches):
     new_juggler = Juggler(name=name, country=country, catches=catches)
     new_juggler.save()
-    return new_juggler
         
 
 def search_by_name(name):
@@ -28,9 +27,7 @@ def search_by_name(name):
 
 
 def update_catches(name, new_catches):
-    juggler_to_update = search_by_name(name)
-    juggler_to_update.catches = new_catches
-    juggler_to_update.save()
+    Juggler.update(catches=new_catches).where(Juggler.name == name).execute()
 
 
 def delete_by_name(name_to_delete):
@@ -53,6 +50,7 @@ def main():
 
     delete_by_name('Bob')
     delete_by_name('Eric')
+    update_catches('Andrea', 6000)
     print('\nWhat it looks like after update')
 
     for juggler in Juggler.select():
